@@ -3,26 +3,27 @@ import { Login, Logout, UserExpert } from "grommet-icons";
 import { Button } from "grommet";
 import { useSelector, useDispatch } from "react-redux";
 
-import { clearToken } from "../features/toots/allTootSlice";
+import { setAuthURL, clearAuthData } from "../features/toots/allTootSlice";
 
 const LoginButton = () => {
   const dispatch = useDispatch();
   const loginCode = useSelector((state) => state.allToots.loginToken);
 
+  const serverURL = `${window.location.protocol}//${domain}`;
+
   return loginCode ? (
-    <Button icon={<Logout />} onClick={() => dispatch(clearToken())} />
+    <Button icon={<Logout />} onClick={() => dispatch(clearAuthData())} />
   ) : (
-    <Button icon={<Login />} onClick={() => loginFunc()} />
+    <Button icon={<Login />} onClick={() => {dispatch(setAuthURL(serverURL)); loginFunc(serverURL)}} />
   );
 };
 
 export default LoginButton;
 
-const loginFunc = async () => {
+const loginFunc = async (serverURL) => {
   const url = `${window.location.protocol}//${window.location.host}`;
   let domain = new URL(url);
   domain = domain.hostname.replace("heb.", "").replace("fedivri.", "");
-  const serverURL = `${window.location.protocol}//${domain}`;
 
   const appID = await genID(serverURL);
   if (appID) {

@@ -3,7 +3,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setToken, clearToken } from "./features/toots/allTootSlice";
+import { setToken } from "./features/toots/allTootSlice";
 
 import {
   Grommet,
