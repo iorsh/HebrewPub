@@ -7,7 +7,8 @@ export const tootSlice = createSlice({
     newest: [],
     oldest: [],
     loading: false,
-    loginToken: null,
+    authAppData: null,
+    authUserData: null,
     authURL: null,
   },
   reducers: {
@@ -39,19 +40,20 @@ export const tootSlice = createSlice({
     stopLoading: (state) => {
       state.loading = false;
     },
-    setToken: (state, action) => {
-      state.loginToken = action.payload;
-      localStorage.setItem("Fedicode", action.payload);
+    setAuthUserData: (state, action) => {
+      state.authUserData = action.payload;
+      localStorage.setItem("FediUser", action.payload);
     },
-    setAuthURL: (state, action) => {
-      state.loginToken = action.payload;
-      localStorage.setItem("FediURL", action.payload);
+    setAuthAppData: (state, action) => {
+      state.authAppData = action.payload;
+      console.log("setAuthAppData", action.payload);
+      localStorage.setItem("FediApp", action.payload);
     },
     clearAuthData: (state) => {
-      state.loginToken = null;
-      state.authURL = null;
-      localStorage.removeItem("Fedicode");
-      localStorage.removeItem("FediURL");
+      state.authUserData = null;
+      state.authAppData = null;
+      localStorage.removeItem("FediUser");
+      localStorage.removeItem("FediApp");
     },
   },
 });
@@ -63,8 +65,8 @@ export const {
   cleanOldest,
   startLoading,
   stopLoading,
-  setToken,
-  setAuthURL,
+  setAuthUserData,
+  setAuthAppData,
   clearAuthData,
 } = tootSlice.actions;
 export default tootSlice.reducer;

@@ -9,6 +9,7 @@ export const serverList = [
   "leftodon.social",
   "reshet.social",
   "toot.org.il",
+  "typo.social",
 ];
 
 //////////////////////////////

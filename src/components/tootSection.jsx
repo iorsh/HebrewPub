@@ -19,7 +19,7 @@ function TootSection() {
   // redux hooks
   const allToots = useSelector((state) => state.allToots.value);
   const isLoading = useSelector((state) => state.allToots.loading);
-  const loginToken = useSelector((state) => state.allToots.loginToken);
+  const authUserData = useSelector((state) => state.allToots.authUserData);
 
   const dispatch = useDispatch();
 
@@ -36,7 +36,7 @@ function TootSection() {
   const homeQuery = useQuery({
     queryKey: ["home", "hardCodedKishkush"],
     queryFn: () => fetchHomeByServer(`kishkush.net`),
-    enabled: loginToken != null,
+    enabled: authUserData != null,
   });
 
   // This weird dependency array is a string version of the latest toot ids. triggers only when a new toot is fetched from any of the servers

@@ -36,10 +36,29 @@ const EmbedEmojis = ({ content, emojis }) => {
   return newContent;
 };
 
+const OpenToot = async (toot, serverURL, token) => {
+  console.log("Entered OPENTOOT");
+  console.log(toot, serverURL, token);
+  const headers = { 'Authorization': `Bearer ${token}` };
+  console.log(headers);
+  const response = await fetch(`${serverURL}/api/v2/search?q=${toot.url}&resolve=true`, { headers });
+  const json = await response.json();
+
+  const userHandle = `@${toot.account.username}@${new URL(toot.account.url).hostname}`;
+  const tootURL = `${serverURL}/${userHandle}/${json.statuses[0].id}`;
+
+  window.location.replace(tootURL);
+}
+
 const SingleToot = ({ toot }) => {
   const oldest = useSelector((state) => state.allToots.oldest);
   ///const isLoading = useSelector((state)=> state.allToots.loading)
   const dispatch = useDispatch();
+
+  const serverURL = localStorage.getItem("FediURL");
+  const token = localStorage.getItem("Fedicode");
+  const userHandle = `@${toot.account.username}@${new URL(toot.account.url).hostname}`;
+  const tootURL = `https://kishkush.net/api/v2/search?q=${toot.url}`;
 
   const ref = useRef();
   const onScreen = useOnScreen(ref, "500px");
@@ -99,9 +118,7 @@ const SingleToot = ({ toot }) => {
 
           <Box flex>
             <Text truncate dangerouslySetInnerHTML={{ __html: display_name }} />
-            <Text truncate>{`@${toot.account.username}@${
-              new URL(toot.account.url).hostname
-            }`}</Text>
+            <Text truncate>{userHandle}</Text>
           </Box>
           <Box width="75px" flex={false}>
             <Text>
@@ -139,7 +156,7 @@ const SingleToot = ({ toot }) => {
         )}
 
         {contentWarning == "" ? (
-          <Button href={toot.url}>
+          <Button onClick={() => {OpenToot(toot, serverURL, token)}}>
             <Text />
             {parse(content)}
           </Button>
@@ -230,6 +247,10 @@ const TootForContext = ({ toot }) => {
 
   const server = new URL(toot.account.url).hostname;
 
+  const serverURL = localStorage.getItem("FediURL");
+  const userHandle = `@${toot.account.username}@${new URL(toot.account.url).hostname}`;
+  const tootURL = `https://kishkush.net/api/v2/search?q=${toot.url}`;
+
   var display_name = EmbedEmojis({
     content: toot.account.display_name,
     emojis: toot.account.emojis,
@@ -255,7 +276,7 @@ const TootForContext = ({ toot }) => {
         {/* Toot Content*/}
         <Box width="100%">
           {contentWarning == "" ? (
-            <Button href={toot.url}>
+            <Button href={tootURL}>
               <Text dangerouslySetInnerHTML={{ __html: content }} />
             </Button>
           ) : (

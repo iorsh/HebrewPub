@@ -3,7 +3,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "./features/toots/allTootSlice";
+import { setAuthUserData } from "./features/toots/allTootSlice";
 
 import {
   Grommet,
@@ -23,12 +23,34 @@ import TootSection from "./components/tootSection";
 import { serverList } from "./components/tootFunctions";
 import LoginButton from "./components/loginButton";
 
+const getToken = async (appData, code) => {
+  const formData = new FormData();
+
+  formData.append("grant_type", "authorization_code");
+  formData.append("code", code);
+  formData.append("client_id", appData["client_id"]);
+  formData.append("client_secret", appData["client_secret"]);
+  formData.append("redirect_uri", appData["redirect_uri"]);
+
+  const response = await fetch(
+    `${appData["server_url"]}/oauth/token`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const token = await response.json();
+  console.log("TOKEN", token)
+  return token;
+};
+
 function App() {
   const [dark, setDark] = useState(true);
   const queryClient = new QueryClient();
 
   const dispatch = useDispatch();
-  const loginCode = useSelector((state) => state.allToots.loginToken);
+  const loginCode = useSelector((state) => state.allToots.authUserData);
 
   useEffect(() => {
     // Get token from URL
@@ -38,11 +60,22 @@ function App() {
     urlParams.delete("code") // TBD: Update the actual URL bar
 
     // Get token from local storage
-    const storedCode = localStorage.getItem("Fedicode");
+    const userData = localStorage.getItem("FediUser");
+    const storedCode = userData ? userData.code : null;
 
     // set the best available token
     const code = storedCode ? storedCode : urlCode ? urlCode : null;
-    dispatch(setToken(code));
+    console.log("userData", userData);
+    console.log("CODE", code);
+
+    // get token by code
+    const appData = localStorage.getItem("FediApp");
+    if (appData && code) {
+      console.log("APP", appData, appData.client_secret, code);
+      const token = getToken(appData, code);
+
+      dispatch(setAuthUserData(token));
+    }
   }, []);
 
   return (

@@ -3,30 +3,39 @@ import { Login, Logout, UserExpert } from "grommet-icons";
 import { Button } from "grommet";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setAuthURL, clearAuthData } from "../features/toots/allTootSlice";
+import { setAuthAppData, clearAuthData } from "../features/toots/allTootSlice";
 
 const LoginButton = () => {
   const dispatch = useDispatch();
-  const loginCode = useSelector((state) => state.allToots.loginToken);
+  const loginCode = useSelector((state) => state.allToots.authUserData);
 
-  const serverURL = `${window.location.protocol}//${domain}`;
+  // const serverURL = `${window.location.protocol}//${domain}`;
+  const serverURL = "https://kishkush.net";
 
   return loginCode ? (
     <Button icon={<Logout />} onClick={() => dispatch(clearAuthData())} />
   ) : (
-    <Button icon={<Login />} onClick={() => {dispatch(setAuthURL(serverURL)); loginFunc(serverURL)}} />
+    <Button icon={<Login />} onClick={() => loginFunc(dispatch, serverURL)} />
   );
 };
 
 export default LoginButton;
 
-const loginFunc = async (serverURL) => {
-  const url = `${window.location.protocol}//${window.location.host}`;
-  let domain = new URL(url);
-  domain = domain.hostname.replace("heb.", "").replace("fedivri.", "");
+const loginFunc = async (dispatch, serverURL) => {
+  // const url = `${window.location.protocol}//${window.location.host}`;
+  // let domain = new URL(url);
+  // domain = domain.hostname.replace("heb.", "").replace("fedivri.", "");
+  const domain = new URL(serverURL).hostname;
 
   const appID = await genID(serverURL);
   if (appID) {
+    console.log("SRV", serverURL, appID);
+    const appData = {"server_url" : serverURL,
+                     "client_id" : appID.client_id,
+                     "client_secret" : appID.client_secret,
+                     "redirect_uri" : appID.redirect_uri };
+    console.log("LOGN_FUNC", appData);
+    dispatch(setAuthAppData(appData));
     login(appID, serverURL);
   } else console.error(`Cannot generate app ID on server ${domain}`);
 };
