@@ -41,7 +41,12 @@ export const tootSlice = createSlice({
     },
     setToken: (state, action) => {
       state.loginToken = action.payload;
-      localStorage.setItem("Fedicode", action.payload);
+      // Avoid accidentally setting code to "null" string
+      if (state.loginToken == null) {
+        localStorage.removeItem("Fedicode");
+      } else {
+        localStorage.setItem("Fedicode", state.loginToken);
+      }
     },
     clearToken: (state) => {
       state.loginToken = null;
