@@ -60,21 +60,21 @@ function App() {
     urlParams.delete("code") // TBD: Update the actual URL bar
 
     // Get token from local storage
-    const userData = localStorage.getItem("FediUser");
-    const storedCode = userData ? userData.code : null;
+    // const userData = JSON.parse(localStorage.getItem("FediUser"));
+    // const storedCode = userData ? userData.token : null;
 
     // set the best available token
-    const code = storedCode ? storedCode : urlCode ? urlCode : null;
-    console.log("userData", userData);
-    console.log("CODE", code);
+    // console.log("userData", userData);
+    console.log("CODE", urlCode);
 
     // get token by code
-    const appData = localStorage.getItem("FediApp");
-    if (appData && code) {
-      console.log("APP", appData, appData.client_secret, code);
-      const token = getToken(appData, code);
-
-      dispatch(setAuthUserData(token));
+    const appData = JSON.parse(localStorage.getItem("FediApp"));
+    if (appData && urlCode) {
+      console.log("APP", appData, appData.client_secret, urlCode);
+      const token = getToken(appData, urlCode);
+      if (token.access_token) {
+        dispatch(setAuthUserData(token));
+      }
     }
   }, []);
 

@@ -35,7 +35,7 @@ function TootSection() {
 
   const homeQuery = useQuery({
     queryKey: ["home", "hardCodedKishkush"],
-    queryFn: () => fetchHomeByServer(`kishkush.net`),
+    queryFn: (token) => fetchHomeByServer(`kishkush.net`, token),
     enabled: authUserData != null,
   });
 

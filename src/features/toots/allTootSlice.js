@@ -42,12 +42,15 @@ export const tootSlice = createSlice({
     },
     setAuthUserData: (state, action) => {
       state.authUserData = action.payload;
-      localStorage.setItem("FediUser", action.payload);
+      const j = JSON.stringify(action.payload, null, 2)
+      localStorage.setItem("FediUser", j);
     },
     setAuthAppData: (state, action) => {
       state.authAppData = action.payload;
       console.log("setAuthAppData", action.payload);
-      localStorage.setItem("FediApp", action.payload);
+      const j = JSON.stringify(action.payload, null, 2)
+      localStorage.setItem("FediApp", j);
+      console.log("setAuthAppData2", localStorage.getItem("FediApp"));
     },
     clearAuthData: (state) => {
       state.authUserData = null;

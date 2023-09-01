@@ -16,7 +16,7 @@ const LoginButton = () => {
     <Button icon={<Logout />} onClick={() => dispatch(clearAuthData())} />
   ) : (
     <Button icon={<Login />} onClick={() => loginFunc(dispatch, serverURL)} />
-  );
+  );  
 };
 
 export default LoginButton;
@@ -30,10 +30,10 @@ const loginFunc = async (dispatch, serverURL) => {
   const appID = await genID(serverURL);
   if (appID) {
     console.log("SRV", serverURL, appID);
-    const appData = {"server_url" : serverURL,
-                     "client_id" : appID.client_id,
-                     "client_secret" : appID.client_secret,
-                     "redirect_uri" : appID.redirect_uri };
+    const appData = {server_url : serverURL,
+                     client_id : appID.client_id,
+                     client_secret : appID.client_secret,
+                     redirect_uri : appID.redirect_uri };
     console.log("LOGN_FUNC", appData);
     dispatch(setAuthAppData(appData));
     login(appID, serverURL);
