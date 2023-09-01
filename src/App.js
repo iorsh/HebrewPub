@@ -31,16 +31,16 @@ function App() {
   const loginCode = useSelector((state) => state.allToots.loginToken);
 
   useEffect(() => {
-    // Get token from URL
+    // Get app authorization code from URL
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const urlCode = urlParams.get("code");
     urlParams.delete("code"); // TBD: Update the actual URL bar
 
-    // Get token from local storage
+    // Get app authorization code from local storage
     const storedCode = localStorage.getItem("Fedicode");
 
-    // set the best available token
+    // set the best available app authorization code
     const code = storedCode ? storedCode : urlCode ? urlCode : null;
     dispatch(setToken(code));
   }, []);
