@@ -8,7 +8,7 @@ export const tootSlice = createSlice({
     oldest: [],
     loading: false,
     loginToken: null,
-    myURL: null,
+    myServerURL: null,
   },
   reducers: {
     addToots: (state, action) => {
@@ -47,8 +47,8 @@ export const tootSlice = createSlice({
       state.loginToken = null;
       localStorage.removeItem("Fedicode");
     },
-    setURL: (state, action) => {
-      state.myURL = action.payload;
+    setMyServerURL: (state, action) => {
+      state.myServerURL = action.payload;
     },
   },
 });
@@ -62,6 +62,6 @@ export const {
   stopLoading,
   setToken,
   clearToken,
-  setURL,
+  setMyServerURL,
 } = tootSlice.actions;
 export default tootSlice.reducer;

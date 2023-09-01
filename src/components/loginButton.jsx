@@ -3,7 +3,7 @@ import { Login, Logout, UserExpert } from "grommet-icons";
 import { Button } from "grommet";
 import { useSelector, useDispatch } from "react-redux";
 
-import { clearToken } from "../features/toots/allTootSlice";
+import { setMyServerURL, clearToken } from "../features/toots/allTootSlice";
 
 const LoginButton = () => {
   const dispatch = useDispatch();
@@ -22,15 +22,18 @@ const loginFunc = async () => {
   const appURL = `${window.location.protocol}//${window.location.host}`;
   let domain = new URL(appURL);
   domain = domain.hostname.replace("heb.", "").replace("fedivri.", "");
-  const serverURL = `${window.location.protocol}//${domain}`;
+  const myServerURL = `${window.location.protocol}//${domain}`;
 
-  const appID = await genID(appURL, serverURL);
+  const appID = await genID(appURL, myServerURL);
   if (appID) {
-    login(appID, serverURL);
-  } else console.error(`Cannot generate app ID on server ${serverURL}`);
+    // Set my URL in state
+    setMyServerURL(myServerURL);
+
+    login(appID, myServerURL);
+  } else console.error(`Cannot generate app ID on server ${myServerURL}`);
 };
 
-const genID = async (appURL, serverURL) => {
+const genID = async (appURL, myServerURL) => {
   const formData = new FormData();
 
   formData.append("client_name", "פדעברי: הפדיברס העברי");
@@ -38,7 +41,7 @@ const genID = async (appURL, serverURL) => {
   formData.append("website", appURL);
 
   const response = await fetch(
-    `${serverURL}/api/v1/apps`,
+    `${myServerURL}/api/v1/apps`,
     {
       method: "POST",
       body: formData,
@@ -49,12 +52,12 @@ const genID = async (appURL, serverURL) => {
   return appID;
 };
 
-const login = (appID, serverURL) => {
+const login = (appID, myServerURL) => {
   const response_type = "code";
   const client_id = appID.client_id;
   const redirect_uri = appID.redirect_uri;
 
-  const hrefTarget = `${serverURL}/oauth/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}`;
+  const hrefTarget = `${myServerURL}/oauth/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}`;
 
   window.location.replace(hrefTarget);
 };

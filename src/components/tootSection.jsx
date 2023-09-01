@@ -20,7 +20,7 @@ function TootSection() {
   const allToots = useSelector((state) => state.allToots.value);
   const isLoading = useSelector((state) => state.allToots.loading);
   const loginToken = useSelector((state) => state.allToots.loginToken);
-  const myURL = useSelector((state) => state.allToots.myURL);
+  const myServerURL = useSelector((state) => state.allToots.myServerURL);
 
   const dispatch = useDispatch();
 
@@ -35,8 +35,8 @@ function TootSection() {
   );
 
   const homeQuery = useQuery({
-    queryKey: ["home", myURL],
-    queryFn: () => fetchHomeByServer(myURL),
+    queryKey: ["home", myServerURL],
+    queryFn: () => fetchHomeByServer(myServerURL),
     enabled: loginToken != null,
   });
 
