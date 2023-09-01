@@ -19,31 +19,26 @@ const LoginButton = () => {
 export default LoginButton;
 
 const loginFunc = async () => {
-  const url = `${window.location.protocol}//${window.location.host}`;
-  let domain = new URL(url);
+  const appURL = `${window.location.protocol}//${window.location.host}`;
+  let domain = new URL(appURL);
   domain = domain.hostname.replace("heb.", "").replace("fedivri.", "");
+  const serverURL = `${window.location.protocol}//${domain}`;
 
-  const appID = await genID(domain);
+  const appID = await genID(appURL, serverURL);
   if (appID) {
-    login(appID, domain);
-  } else console.error(`Cannot generate app ID on server ${domain}`);
+    login(appID, serverURL);
+  } else console.error(`Cannot generate app ID on server ${serverURL}`);
 };
 
-const genID = async (domain) => {
+const genID = async (appURL, serverURL) => {
   const formData = new FormData();
 
   formData.append("client_name", "פדעברי: הפדיברס העברי");
-  formData.append(
-    "redirect_uris",
-    `${window.location.protocol}//${window.location.host}`
-  );
-  formData.append(
-    "website",
-    `${window.location.protocol}//${window.location.host}`
-  );
+  formData.append("redirect_uris", appURL);
+  formData.append("website", appURL);
 
   const response = await fetch(
-    `${window.location.protocol}//${domain}/api/v1/apps`,
+    `${serverURL}/api/v1/apps`,
     {
       method: "POST",
       body: formData,
@@ -54,8 +49,7 @@ const genID = async (domain) => {
   return appID;
 };
 
-const login = (appID, domain) => {
-  const serverURL = `${window.location.protocol}//${domain}`;
+const login = (appID, serverURL) => {
   const response_type = "code";
   const client_id = appID.client_id;
   const redirect_uri = appID.redirect_uri;
