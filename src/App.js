@@ -21,7 +21,7 @@ import { Moon, Sun, UserExpert } from "grommet-icons";
 
 import TootSection from "./components/tootSection";
 import { serverList } from "./components/tootFunctions";
-import LoginButton from "./components/loginButton";
+import { LoginButton, genToken } from "./components/loginButton";
 
 function App() {
   const [dark, setDark] = useState(true);
@@ -42,6 +42,25 @@ function App() {
 
     // set the best available app authorization code
     const code = storedCode ? storedCode : urlCode ? urlCode : null;
+
+    var appData = localStorage.getItem("appData");
+    console.log("appdata from storage", appData);
+    if (appData !== null) {
+      appData = JSON.parse(appData);
+    }
+    console.log("appdata parsed", appData);
+
+    console.log(code);
+    if (code !== null) {
+      console.log("more appdata", appData);
+      if (!!appData) {
+        const my_token = genToken(appData, code, appData.server_url);
+        // if (my_token !== null) {
+        //   localStorage.setItem("TOKEN", my_token);
+        // }
+      }
+    }
+
     dispatch(setToken(code));
   }, []);
 

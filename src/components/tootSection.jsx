@@ -20,7 +20,8 @@ function TootSection() {
   const allToots = useSelector((state) => state.allToots.value);
   const isLoading = useSelector((state) => state.allToots.loading);
   const loginToken = useSelector((state) => state.allToots.loginToken);
-  const myServerURL = useSelector((state) => state.allToots.myServerURL);
+  const appData = useSelector((state) => state.allToots.myServerURL);
+  const token = localStorage.getItem("TOKEN");
 
   const dispatch = useDispatch();
 
@@ -35,8 +36,8 @@ function TootSection() {
   );
 
   const homeQuery = useQuery({
-    queryKey: ["home", myServerURL],
-    queryFn: () => fetchHomeByServer(myServerURL),
+    queryKey: ["home", "kish"],
+    queryFn: () => fetchHomeByServer("https://kishkush.net", token),
     enabled: loginToken != null,
   });
 
@@ -46,7 +47,7 @@ function TootSection() {
   );
 
   useEffect(() => {
-    homeQuery.isSuccess && dispatch(addToots, homeQuery.data);
+    homeQuery.isSuccess && dispatch(addToots(homeQuery.data));
     for (const query in serverQueries) {
       // add to allToots if successful
       const queryData = serverQueries[query];
@@ -59,7 +60,7 @@ function TootSection() {
     for (let server of serverList) {
       try {
         const oldestToot = allToots
-          .filter((toot) => new URL(toot.url).hostname === server)
+          .filter((toot) => toot.url !== null && new URL(toot.url).hostname === server)
           .at(-1).id;
         dispatch(updateOldest(oldestToot));
       } catch (error) {
@@ -68,7 +69,7 @@ function TootSection() {
       dispatch(
         updateNewest({
           [server]: allToots
-            .filter((toot) => new URL(toot.url).hostname === server)
+            .filter((toot) => toot.url !== null && new URL(toot.url).hostname === server)
             .at(0),
         })
       );

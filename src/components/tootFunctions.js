@@ -46,7 +46,7 @@ try {
   };
 } catch (error) {
   alert(error);
-  clearToken();
+  // clearToken();
 }
 export var fetchHomeByServer
 

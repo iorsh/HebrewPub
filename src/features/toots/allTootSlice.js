@@ -54,6 +54,7 @@ export const tootSlice = createSlice({
     },
     setMyServerURL: (state, action) => {
       state.myServerURL = action.payload;
+      console.log("setMyServerURL", state.myServerURL);
     },
   },
 });
