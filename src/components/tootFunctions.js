@@ -13,6 +13,7 @@ export const serverList = [
   "reshet.social",
   "toot.org.il",
   "typo.social",
+  "mastodon.design",
 ];
 
 //////////////////////////////
