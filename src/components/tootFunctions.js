@@ -13,6 +13,7 @@ export const mastodonServerList = [
   "reshet.social",
   "toot.org.il",
   "typo.social",
+  "mastodon.design",
 ];
 
 export const peertubeServerList = [
