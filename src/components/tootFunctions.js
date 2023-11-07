@@ -12,6 +12,7 @@ export const mastodonServerList = [
   "leftodon.social",
   "reshet.social",
   "toot.org.il",
+  "typo.social",
 ];
 
 export const peertubeServerList = [
@@ -110,7 +111,8 @@ export const replaceTokens = (text, urlMap) => {
 };
 
 export const getHomeInstanceURL = () => {
-  const domain = window.location.hostname.replace("heb.", "").replace("fedivri.", "");
+  // const domain = window.location.hostname.replace("heb.", "").replace("fedivri.", "");
+  const domain = "kishkush.net";
   const homeInstanceURL = `https://${domain}`;
 
   return (mastodonServerList.includes(domain)) ? homeInstanceURL : null;
