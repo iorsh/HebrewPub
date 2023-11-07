@@ -12,6 +12,7 @@ export const serverList = [
   "leftodon.social",
   "reshet.social",
   "toot.org.il",
+  "typo.social",
 ];
 
 //////////////////////////////
@@ -70,7 +71,8 @@ export const replaceTokens = (text, urlMap) => {
 };
 
 export const getHomeInstanceURL = () => {
-  const domain = window.location.hostname.replace("heb.", "").replace("fedivri.", "");
+  // const domain = window.location.hostname.replace("heb.", "").replace("fedivri.", "");
+  const domain = "kishkush.net";
   const homeInstanceURL = `https://${domain}`;
 
   return (serverList.includes(domain)) ? homeInstanceURL : null;
