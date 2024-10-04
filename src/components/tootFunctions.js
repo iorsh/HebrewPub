@@ -14,6 +14,7 @@ export const serverList = [
   "toot.org.il",
   "typo.social",
   "mastodon.design",
+  "graphics.social",
 ];
 
 //////////////////////////////
