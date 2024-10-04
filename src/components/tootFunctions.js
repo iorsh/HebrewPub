@@ -14,6 +14,7 @@ export const mastodonServerList = [
   "toot.org.il",
   "typo.social",
   "mastodon.design",
+  "graphics.social",
 ];
 
 export const peertubeServerList = [
