@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/HebrewPub/static/css/main.45ed6f9a.css",
-    "main.js": "/HebrewPub/static/js/main.a4d0680a.js",
-    "static/js/787.732c3b87.chunk.js": "/HebrewPub/static/js/787.732c3b87.chunk.js",
-    "index.html": "/HebrewPub/index.html",
-    "main.45ed6f9a.css.map": "/HebrewPub/static/css/main.45ed6f9a.css.map",
-    "main.a4d0680a.js.map": "/HebrewPub/static/js/main.a4d0680a.js.map",
-    "787.732c3b87.chunk.js.map": "/HebrewPub/static/js/787.732c3b87.chunk.js.map"
+    "main.css": "/static/css/main.d3d4bbf1.css",
+    "main.js": "/static/js/main.a6045a22.js",
+    "static/js/787.732c3b87.chunk.js": "/static/js/787.732c3b87.chunk.js",
+    "index.html": "/index.html",
+    "main.d3d4bbf1.css.map": "/static/css/main.d3d4bbf1.css.map",
+    "main.a6045a22.js.map": "/static/js/main.a6045a22.js.map",
+    "787.732c3b87.chunk.js.map": "/static/js/787.732c3b87.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.45ed6f9a.css",
-    "static/js/main.a4d0680a.js"
+    "static/css/main.d3d4bbf1.css",
+    "static/js/main.a6045a22.js"
   ]
 }
