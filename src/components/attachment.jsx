@@ -1,6 +1,38 @@
 import { useState } from "react";
 import { Text, Box, Image, Video, Button, Layer } from "grommet";
 import { Blurhash } from "react-blurhash";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
+const is_carousel = (media_attachments) => {
+  return (media_attachments.length > 1) && media_attachments.every(att => (att.type === "image" || att.type === "gifv"))
+};
+
+const ImageCarousel = ({ media_attachments }) => {
+  return (
+    <Carousel useKeyboardArrows>
+    {media_attachments.map((image, idx) => (
+      <div key={idx}><img src={image.preview_url} alt={image.description} /></div>
+    ))}
+    </Carousel>
+  );
+};
+    
+const Attachments = ({ media_attachments, contentWarning }) => {
+  if (is_carousel(media_attachments)) {
+    return <ImageCarousel media_attachments={media_attachments} />;
+  }
+
+  return (
+    media_attachments.map((attachment) => (
+      <Attachment
+        key={`attachment_${attachment.id}`}
+        attachment={attachment}
+        contentWarning={contentWarning}
+      />
+    ))
+  );
+};
 
 const Attachment = ({ attachment, contentWarning }) => {
   const [showModal, setShowModal] = useState(false);
@@ -116,4 +148,4 @@ const Attachment = ({ attachment, contentWarning }) => {
   }
 };
 
-export default Attachment;
+export default Attachments;
