@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/HebrewPub/static/css/main.afc93410.css",
-    "main.js": "/HebrewPub/static/js/main.5a8ed436.js",
+    "main.js": "/HebrewPub/static/js/main.c8ac1e8b.js",
     "static/js/787.732c3b87.chunk.js": "/HebrewPub/static/js/787.732c3b87.chunk.js",
     "index.html": "/HebrewPub/index.html",
     "main.afc93410.css.map": "/HebrewPub/static/css/main.afc93410.css.map",
-    "main.5a8ed436.js.map": "/HebrewPub/static/js/main.5a8ed436.js.map",
+    "main.c8ac1e8b.js.map": "/HebrewPub/static/js/main.c8ac1e8b.js.map",
     "787.732c3b87.chunk.js.map": "/HebrewPub/static/js/787.732c3b87.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.afc93410.css",
-    "static/js/main.5a8ed436.js"
+    "static/js/main.c8ac1e8b.js"
   ]
 }
