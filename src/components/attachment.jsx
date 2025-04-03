@@ -11,7 +11,7 @@ const is_carousel = (media_attachments) => {
 const ImageCarousel = ({ media_attachments }) => {
   return (
     <Carousel
-      style={{ "background-color": "inherit", height: "90vh", width: "90%" }}
+      style={{ "background-color": "inherit", "max-height": "90vh", width: "90%" }}
       shouldMaximizeOnClick
       shouldMinimizeOnClick
       hasThumbnailsAtMax={false}
