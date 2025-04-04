@@ -4,6 +4,8 @@ import { Blurhash } from "react-blurhash";
 import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 
+import "./designFix.scss";
+
 const is_carousel = (media_attachments) => {
   return (media_attachments.length > 1) && media_attachments.every(att => (att.type === "image" || att.type === "gifv"))
 };
@@ -20,7 +22,9 @@ const ImageCarousel = ({ media_attachments }) => {
       hasIndexBoard={false}
     >
     {media_attachments.map((image, idx) => (
-      <div key={idx}><img src={image.preview_url} alt={image.description} /></div>
+      <div className={"carousel_div"} key={idx}>
+	<img className={"carousel_img"} src={image.url} alt={image.description} />
+      </div>
     ))}
     </Carousel>
   );
