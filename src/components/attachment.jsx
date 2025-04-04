@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Text, Box, Image, Video, Button, Layer } from "grommet";
 import { Blurhash } from "react-blurhash";
+import Carousel from 'react-gallery-carousel';
+import 'react-gallery-carousel/dist/index.css';
 
 const Attachments = ({ attachments, contentWarning }) => {
   return (
-    <Box direction="row" justify="center">
+    <Box dir="ltr" direction="row" justify="center">
+      <Carousel>
       {attachments.map((attachment) => (
         <Attachment
           key={`attachment_${attachment.id}`}
@@ -12,6 +15,7 @@ const Attachments = ({ attachments, contentWarning }) => {
           contentWarning={contentWarning}
         />
       ))}
+      </Carousel>
     </Box>
   )
 };
