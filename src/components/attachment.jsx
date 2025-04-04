@@ -7,7 +7,7 @@ import 'react-gallery-carousel/dist/index.css';
 const Attachments = ({ attachments, contentWarning }) => {
   return (
     <Box dir="ltr" direction="row" justify="center">
-      <Carousel>
+      <Carousel shouldMaximizeOnClick shouldMinimizeOnClick>
       {attachments.map((attachment) => (
         <Attachment
           key={`attachment_${attachment.id}`}
@@ -21,8 +21,6 @@ const Attachments = ({ attachments, contentWarning }) => {
 };
 
 const Attachment = ({ attachment, contentWarning }) => {
-  const [showModal, setShowModal] = useState(false);
-
   if (attachment.type === "image") {
     return (
       <Box
@@ -35,9 +33,6 @@ const Attachment = ({ attachment, contentWarning }) => {
         <Button
           secondary
           alignSelf="center"
-          onClick={() => {
-            setShowModal(true);
-          }}
         >
           {contentWarning ? (
             <Blurhash
@@ -60,19 +55,6 @@ const Attachment = ({ attachment, contentWarning }) => {
             <Image src={attachment.preview_url} fill={true} />
           )}
         </Button>
-
-        {showModal && (
-          <Layer
-            onEsc={() => setShowModal(false)}
-            onClickOutside={() => setShowModal(false)}
-          >
-            <Button onClick={() => setShowModal(false)}>
-              <Box height={{ max: "90vh" }} width={{ max: "90vw" }}>
-                <Image fit="contain" src={attachment.url} />
-              </Box>
-            </Button>
-          </Layer>
-        )}
       </Box>
     );
   } else if (attachment.type === "video" || attachment.type === "gifv") {
@@ -87,9 +69,6 @@ const Attachment = ({ attachment, contentWarning }) => {
         <Button
           secondary
           alignSelf="center"
-          onClick={() => {
-            setShowModal(true);
-          }}
         >
           {contentWarning ? (
             <Blurhash
@@ -104,25 +83,6 @@ const Attachment = ({ attachment, contentWarning }) => {
             <Image fit="cover" src={attachment.preview_url} />
           )}
         </Button>
-
-        {showModal && (
-          <Layer
-            onEsc={() => setShowModal(false)}
-            onClickOutside={() => setShowModal(false)}
-          >
-            <Button onClick={() => setShowModal(false)}>
-              <Box height={{ max: "90vh" }} width={{ max: "90vw" }}>
-                <Video
-                  fit="contain"
-                  src={attachment.url}
-                  autoPlay
-                  controls={false}
-                  loop
-                />
-              </Box>
-            </Button>
-          </Layer>
-        )}
       </Box>
     );
   } else {
