@@ -4,3 +4,15 @@ p a:link {
   color: white;
   text-decoration: underline;
 }
+
+.carousel_div {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+      
+.carousel_img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

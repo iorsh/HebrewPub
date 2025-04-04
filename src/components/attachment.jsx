@@ -4,6 +4,8 @@ import { Blurhash } from "react-blurhash";
 import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 
+import "./designFix.scss";
+
 const Attachments = ({ attachments, contentWarning }) => {
   const single = (attachments.length == 1);
   return (
@@ -32,42 +34,12 @@ const Attachments = ({ attachments, contentWarning }) => {
   )
 };
 
-const Attachment = ({ attachment, contentWarning }) => {
+const Attachment = ({ key, attachment, contentWarning }) => {
   if (attachment.type === "image") {
     return (
-      <Box
-        overflow="hidden"
-        margin="xsmall"
-        flex="shrink"
-        round="5px"
-        height={{ min: "small", max: "medium" }}
-      >
-        <Button
-          secondary
-          alignSelf="center"
-        >
-          {contentWarning ? (
-            <Blurhash
-              hash={attachment.blurhash}
-              width={
-                "small" in attachment.meta
-                  ? attachment.meta.small.width
-                  : attachment.meta.original.width
-              }
-              height={
-                "small" in attachment.meta
-                  ? attachment.meta.small.height
-                  : attachment.meta.original.height
-              }
-              resolutionX={32}
-              resolutionY={32}
-              punch={1}
-            />
-          ) : (
-            <Image src={attachment.preview_url} fill={true} />
-          )}
-        </Button>
-      </Box>
+      <div className="carousel_div" >
+        <img className="carousel_img" src={attachment.url} alt={attachment.description} />
+      </div>
     );
   } else if (attachment.type === "video" || attachment.type === "gifv") {
     return (
