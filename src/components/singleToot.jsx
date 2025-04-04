@@ -173,9 +173,17 @@ const SingleToot = ({ toot }) => {
         )}
 
         {contentWarning == "" ? (
-      <Button dir="auto" href={tootURL}>
-      {content}
-          </Button>
+          <>
+            <Button dir="auto" href={tootURL}>
+              {content}
+            </Button>
+            {toot.media_attachments.length > 0 && (
+              <Box dir="ltr" direction="row" justify="center">
+                <Attachments media_attachments={toot.media_attachments}
+                contentWarning={contentWarning} />
+              </Box>
+            )}
+          </>
         ) : (
           <Box
             height="xsmall"
@@ -191,12 +199,6 @@ const SingleToot = ({ toot }) => {
                 setCW(!contentWarning);
               }}
             />
-          </Box>
-        )}
-        {toot.media_attachments.length > 0 && (
-          <Box dir="ltr" direction="row" justify="center">
-            <Attachments media_attachments={toot.media_attachments}
-                contentWarning={contentWarning} />
           </Box>
         )}
 

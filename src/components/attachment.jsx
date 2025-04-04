@@ -7,13 +7,17 @@ import 'react-gallery-carousel/dist/index.css';
 import "./designFix.scss";
 
 const is_carousel = (media_attachments) => {
-  return (media_attachments.length > 1) && media_attachments.every(att => (att.type === "image" || att.type === "gifv"))
+  return media_attachments.every(att => (att.type === "image" || att.type === "gifv"))
 };
 
 const ImageCarousel = ({ media_attachments }) => {
+  const single = media_attachments.length == 1;
   return (
     <Carousel
       style={{ "background-color": "inherit", "max-height": "90vh", width: "90%" }}
+      hasThumbnails={!single}
+      hasLeftButton={!single}
+      hasRightButton={!single}
       shouldMaximizeOnClick
       shouldMinimizeOnClick
       hasThumbnailsAtMax={false}
