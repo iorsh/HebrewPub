@@ -5,9 +5,21 @@ import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 
 const Attachments = ({ attachments, contentWarning }) => {
+  const single = (attachments.length == 1);
   return (
     <Box dir="ltr" direction="row" justify="center">
-      <Carousel shouldMaximizeOnClick shouldMinimizeOnClick>
+      <Carousel
+        style={{ "background-color": "inherit", "max-height": "90vh", width: "90%" }}
+        hasThumbnails={!single}
+        hasLeftButton={!single}
+        hasRightButton={!single}
+        shouldMaximizeOnClick
+        shouldMinimizeOnClick
+        hasThumbnailsAtMax={false}
+        hasMediaButton={false}
+        hasSizeButton={false}
+        hasIndexBoard={false}
+      >
       {attachments.map((attachment) => (
         <Attachment
           key={`attachment_${attachment.id}`}
