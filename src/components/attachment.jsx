@@ -2,6 +2,20 @@ import { useState } from "react";
 import { Text, Box, Image, Video, Button, Layer } from "grommet";
 import { Blurhash } from "react-blurhash";
 
+const Attachments = ({ attachments, contentWarning }) => {
+  return (
+    <Box direction="row" justify="center">
+      {attachments.map((attachment) => (
+        <Attachment
+          key={`attachment_${attachment.id}`}
+          attachment={attachment}
+          contentWarning={contentWarning}
+        />
+      ))}
+    </Box>
+  )
+};
+
 const Attachment = ({ attachment, contentWarning }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -116,4 +130,4 @@ const Attachment = ({ attachment, contentWarning }) => {
   }
 };
 
-export default Attachment;
+export default Attachments;

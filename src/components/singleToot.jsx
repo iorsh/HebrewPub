@@ -23,7 +23,7 @@ import {
 } from "../features/toots/allTootSlice";
 import { fetchOldTootsByServer, interactURL, replaceTokens } from "./tootFunctions";
 import useOnScreen from "./useOnScreen";
-import Attachment from "./attachment";
+import Attachments from "./attachment";
 import parse from "html-react-parser";
 
 import "./designFix.scss";
@@ -178,15 +178,10 @@ const SingleToot = ({ toot }) => {
               {content}
             </Button>
             {toot.media_attachments.length > 0 && (
-              <Box direction="row" justify="center">
-                {toot.media_attachments.map((attachment) => (
-                  <Attachment
-                    key={`attachment_${attachment.id}`}
-                    attachment={attachment}
-                    contentWarning={contentWarning}
-                  />
-                ))}
-              </Box>
+              <Attachments
+                attachments={toot.media_attachments}
+                contentWarning={contentWarning}
+              />
             )}
           </>
         ) : (
