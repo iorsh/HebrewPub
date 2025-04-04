@@ -11,7 +11,11 @@ const Attachments = ({ attachments, contentWarning }) => {
   return (
     <Box dir="ltr" direction="row" justify="center">
       <Carousel
-        style={{ "background-color": "inherit", "max-height": "90vh", width: "90%" }}
+        style={{ "background-color": "inherit",
+                 "max-height": "70vh",
+                 width: "90%",
+                 borderRadius: 10,
+                 overflow: 'hidden' }}
         hasThumbnails={!single}
         hasLeftButton={!single}
         hasRightButton={!single}
