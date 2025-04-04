@@ -47,31 +47,11 @@ const Attachment = ({ key, attachment, contentWarning }) => {
     );
   } else if (attachment.type === "video" || attachment.type === "gifv") {
     return (
-      <Box
-        overflow="hidden"
-        margin="xsmall"
-        flex="shrink"
-        round="5px"
-        height={{ min: "small", max: "medium" }}
-      >
-        <Button
-          secondary
-          alignSelf="center"
-        >
-          {contentWarning ? (
-            <Blurhash
-              hash={attachment.blurhash}
-              width={attachment.meta.small.width}
-              height={attachment.meta.small.height}
-              resolutionX={32}
-              resolutionY={32}
-              punch={1}
-            />
-          ) : (
-            <Image fit="cover" src={attachment.preview_url} />
-          )}
-        </Button>
-      </Box>
+      <div className="carousel_div" >
+        <video className="carousel_img" controls>
+          <source src={attachment.url} />
+        </video> 
+      </div>
     );
   } else {
     return (
