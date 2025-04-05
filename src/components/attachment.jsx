@@ -53,6 +53,12 @@ const Attachment = ({ key, attachment, contentWarning }) => {
         </video> 
       </div>
     );
+  } else if (attachment.type === "audio") {
+    return (
+      <div className="carousel_div" >
+        <audio className="carousel_img" src={attachment.url} controls/>
+      </div>
+    );
   } else {
     return (
       <Text
