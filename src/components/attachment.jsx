@@ -8,9 +8,17 @@ import "./designFix.scss";
 
 const Attachments = ({ attachments, contentWarning }) => {
   const single = (attachments.length == 1);
+  const slides = attachments.map((attachment) => (
+        <Attachment
+          key={`attachment_${attachment.id}`}
+          attachment={attachment}
+          contentWarning={contentWarning}
+        />
+      ));
   return (
     <Box dir="ltr" direction="row" justify="center">
       <Carousel
+        children={slides}
         style={{ "background-color": "inherit",
                  "max-height": "70vh",
                  width: "90%",
@@ -25,15 +33,7 @@ const Attachments = ({ attachments, contentWarning }) => {
         hasMediaButton={false}
         hasSizeButton={false}
         hasIndexBoard={false}
-      >
-      {attachments.map((attachment) => (
-        <Attachment
-          key={`attachment_${attachment.id}`}
-          attachment={attachment}
-          contentWarning={contentWarning}
-        />
-      ))}
-      </Carousel>
+      />
     </Box>
   )
 };
