@@ -42,7 +42,7 @@ const Attachment = ({ key, attachment, contentWarning }) => {
   if (attachment.type === "image") {
     return (
       <div className="carousel_div" >
-        <img className="carousel_img" src={attachment.url} alt={attachment.description} />
+        <img className="carousel_img" src={attachment.url} title={attachment.description} />
       </div>
     );
   } else if (attachment.type === "video" || attachment.type === "gifv") {
